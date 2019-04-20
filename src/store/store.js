@@ -5,6 +5,15 @@ import db from '../firebase/init'
 
 Vue.use(Vuex)
 
+//kontrola stanja aplikacije posle reload-a stranice
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    //kada se reloaduje stranica, potrebno je zadrzati ulogovanog korisnika
+    store.commit('setCurrentUser', user)
+    store.dispatch('fetchUserProfile')
+  }
+})
+
 const store = new Vuex.Store({
   state: {
     currentUser: null,
