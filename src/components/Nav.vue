@@ -4,15 +4,18 @@
       <a href="index.html"><i class="fas fa-book"></i>Library</a>
     </div>
     <ul class="navbar">
-      <li class = "nav-item"><router-link class = "nav-link" v-bind:to = "{name: 'Login'}">Login</router-link></li>
-      <li class="nav-item"><router-link class = "nav-link" v-bind:to = "{name: 'Register'}">Register</router-link></li>
-      <li class="nav-item username"><i class = "fas fa-user"></i>username</li>
-      <li class="nav-item"><a href = "" class = "nav-link">Logout</a></li>
+      <li v-if = "!getCurrentUser" class = "nav-item"><router-link class = "nav-link" v-bind:to = "{name: 'Login'}">Login</router-link></li>
+      <li v-if = "!getCurrentUser" class="nav-item"><router-link class = "nav-link" v-bind:to = "{name: 'Register'}">Register</router-link></li>
+      <li v-if = "getCurrentUser" class="nav-item username"><i class = "fas fa-user"></i>{{getUserProfile.username}}</li>
+      <li v-if = "getCurrentUser" class="nav-item"><a v-on:click.prevent = "logout" href = "" class = "nav-link">Logout</a></li>
     </ul>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase'
+import db from '../firebase/init'
+import {mapGetters} from 'vuex'
 export default {
   name: 'Nav',
   data () {
@@ -21,9 +24,20 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getCurrentUser','getUserProfile'])
   },
   methods: {
-    
+    logout(){
+      //odjavi trenutnog korisnika
+      firebase.auth().signOut()
+      .then(()=>{
+        //zatim postavi state(ukloni podatke korisnika) i prebaci na login stranicu
+        this.$store.dispatch('clearData');
+        this.$router.push({name: 'Login'});
+      }).catch(err=>{
+        console.log(err);
+      })
+    }
   },
 }
 </script>

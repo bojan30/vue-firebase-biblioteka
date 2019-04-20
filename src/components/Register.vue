@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import db from '../firebase/init'
 export default {
   name: 'Register',
   data () {
@@ -47,11 +49,48 @@ export default {
   },
   methods: {
     register(){
+      if(this.username && this.email && this.password && this.repeatPassword){
+        //ako su sva polja uneta, prvo proveri da li korisnik sa sa username-om vec postoji u bazi
+        db.collection('users').doc(this.username).get()
+        .then(doc=>{
+          if(doc.exists){
+            this.feedback = 'Username with the same name allready exists!'
+          }
+          else{
+            //proveri da li se sifra i ponovljena sifra slazu
+            if(this.password !== this.repeatPassword){
+              this.feedback = 'Passwords don\'t match!'
+            }
+            else{
+              //napravi nov nalog
+              firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then(cred=>{
+                this.$store.commit('setCurrentUser',cred.user)
+                //napravi novog korisnika u kolekciji
+                db.collection('users').doc(this.username).set({
+                  username: this.username,
+                  user_id: cred.user.uid
+                }).then(()=>{
+                  //fetchuj podatke korisnika i prebaci na admin(dashboard) stranicu
+                  this.$store.dispatch('fetchUserProfile')
+                  this.$router.push({name: 'Dashboard'})
+                }).catch(err=>{
+                  this.feedback = err.message;
+                });
+              })
+              .catch(err=>{
+                this.feedback = err.message;
+              });
+            }
+          }
+        })
+      }
+      else{
+        this.feedback = 'You must enter all fields...'
+      }
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

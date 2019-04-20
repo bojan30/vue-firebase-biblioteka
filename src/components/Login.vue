@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import db from '../firebase/init'
 export default {
   name: 'Login',
   data () {
@@ -35,11 +37,27 @@ export default {
   },
   methods: {
     login(){
+      //proveri da li je uneta lozinka i email
+      if(this.email && this.password){
+      //pristupi firebase auth servisu
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(cred => {
+        //postavi ulogovanog korisnika
+        this.$store.commit('setCurrentUser', cred.user)
+        //povuci podatke od trenutno ulogovanog korisnika
+        this.$store.dispatch('fetchUserProfile')
+        //prebaci na admin(dashboard) stranicu
+        this.$router.push('/dashboard')
+    }).catch(err => {
+        this.feedback = err.message;
+    })
+    }
+    else{
+      this.feedback = 'You must enter all fields...'
+    }
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
