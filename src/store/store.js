@@ -11,6 +11,17 @@ firebase.auth().onAuthStateChanged(user => {
     //kada se reloaduje stranica, potrebno je zadrzati ulogovanog korisnika
     store.commit('setCurrentUser', user)
     store.dispatch('fetchUserProfile')
+
+    //handle real time changes in db
+    db.collection('books').where('user_id', '==', user.uid).orderBy('author').onSnapshot(snapshot => {
+      let booksArray = [];
+      snapshot.forEach(doc => {
+        let book = doc.data();
+        book.id = doc.id;
+        booksArray.push(book);
+      });
+      store.commit('setBooks', booksArray);
+    })
   }
 })
 
@@ -19,6 +30,9 @@ const store = new Vuex.Store({
     currentUser: null,
     userProfile: {},
     books: [],
+    addBookModal: false,
+    editBookModal: false,
+    deleteBookModal: false
   },
   getters: {
     getCurrentUser: (state) => {
@@ -27,6 +41,18 @@ const store = new Vuex.Store({
     getUserProfile: (state) => {
       return state.userProfile;
     },
+    getBooks: (state) => {
+      return state.books
+    },
+    editBookModal: (state) => {
+      return state.editBookModal;
+    },
+    deleteBookModal: (state) => {
+      return state.deleteBookModal;
+    },
+    addBookModal: (state) => {
+      return state.addBookModal;
+    }
   },
   mutations: {
     setCurrentUser(state, val) {
@@ -34,6 +60,18 @@ const store = new Vuex.Store({
     },
     setUserProfile(state, val) {
       state.userProfile = val
+    },
+    setBooks(state, val) {
+      state.books = val;
+    },
+    setDeleteBookModal(state, val) {
+      state.deleteBookModal = val;
+    },
+    setEditBookModal(state, val) {
+      state.editBookModal = val;
+    },
+    setAddBookModal(state, val) {
+      state.addBookModal = val;
     },
   },
   actions: {

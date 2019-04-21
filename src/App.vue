@@ -312,4 +312,61 @@ input{
   border-radius: 4px;
 }
 
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.2);
+}
+.modal .form{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.fa-times{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+  color: var(--text-color);
+}
+
+/*media*/
+
+@media(max-width: 568px){
+  .form{
+    width: 100%;
+  }
+  body{
+    font-size: 10px;
+  }
+}
+
+/*feedback message styles*/
+.feedback{
+  background-color: var(--danger);
+  padding: 5px; 
+  color: #fff;
+  border-radius: var(--border-radius);
+  margin-bottom: 10px;
+}
+
+.confirm{
+  background-color: var(--danger);
+}
+.cancel{
+  background-color: var(--secondary);
+  color: #333;
+  border: 1px solid #333;
+}
+
+.delete-modal-buttons{
+  display: flex;
+  justify-content: space-between;
+}
 </style>
