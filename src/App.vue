@@ -369,4 +369,24 @@ input{
   display: flex;
   justify-content: space-between;
 }
+
+.message{
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0px 0px 3px 0px var(--success);
+  background-color: #fff;
+  color: var(--success);
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+}
+.message p span{
+  margin-right: 5px;
+}
+.message p .fa-check{
+  border: 1px solid var(--success);
+  border-radius: 50%;
+  padding: 3px;
+}
 </style>

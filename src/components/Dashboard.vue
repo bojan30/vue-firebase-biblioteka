@@ -32,6 +32,9 @@
     <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <editBookModal style="animation-duration: 0.3s" :bookToEdit = "bookToEdit" v-if = "editBookModal"/>
     </transition>
+    <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <Message v-if = "getMessage" :message = "getMessage" style="animation-duration: 0.3s"/>
+    </transition>
     </div>
   </div>
 </template>
@@ -41,6 +44,7 @@ import Book from './Book'
 import addBookModal from './addBookModal'
 import deleteBookModal from './deleteBookModal'
 import editBookModal from './editBookModal'
+import Message from './Message'
 import {mapGetters} from 'vuex'
 export default {
   name: 'Dashboard',
@@ -49,6 +53,7 @@ export default {
     addBookModal,
     deleteBookModal,
     editBookModal,
+    Message
   },
   data () {
     return {
@@ -57,7 +62,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getBooks','getMessage','deleteBookModal','editBookModal','addBookModal']),
+    ...mapGetters(['getBooks','getMessage','deleteBookModal','editBookModal','addBookModal','getMessage']),
   },
   methods: {
     openAddBookModal(){

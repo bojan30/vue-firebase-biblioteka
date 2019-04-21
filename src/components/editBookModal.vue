@@ -60,7 +60,7 @@ export default {
     },
     editBook(){
       if(this.author && this.title && this.publisher && this.year){
-        //edit the book
+        //editovanje
         this.pending = true;
         this.close();
         db.collection('books').doc(this.bookToEdit.id).update({
@@ -71,6 +71,9 @@ export default {
         })
         .then(()=>{
           //ovde treba dodati poruku
+          this.$store.commit('setMessage','Book successfuly edited!');
+          //brisanje poruke nakon dve sekunde
+          this.$store.dispatch('setMessage',null);
         })
       }
       else{

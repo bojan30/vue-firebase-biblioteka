@@ -33,6 +33,9 @@ export default {
       db.collection('books').doc(this.bookToDelete.id).delete()
       .then(()=>{
         //ovde treba dodati poruku
+        this.$store.commit('setMessage','Book successfuly deleted!');
+        //brisanje poruke nakon dve sekunde
+        this.$store.dispatch('setMessage',null);
       })
     }
   }

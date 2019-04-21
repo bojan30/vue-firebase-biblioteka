@@ -32,7 +32,8 @@ const store = new Vuex.Store({
     books: [],
     addBookModal: false,
     editBookModal: false,
-    deleteBookModal: false
+    deleteBookModal: false,
+    message: null
   },
   getters: {
     getCurrentUser: (state) => {
@@ -52,7 +53,10 @@ const store = new Vuex.Store({
     },
     addBookModal: (state) => {
       return state.addBookModal;
-    }
+    },
+    getMessage: (state)=>{
+      return state.message;
+    },
   },
   mutations: {
     setCurrentUser(state, val) {
@@ -73,6 +77,9 @@ const store = new Vuex.Store({
     setAddBookModal(state, val) {
       state.addBookModal = val;
     },
+    setMessage(state, val) {
+      state.message = val;
+    },
   },
   actions: {
     clearData({ commit }) {
@@ -88,6 +95,11 @@ const store = new Vuex.Store({
         console.log(err)
       })
     },
+    setMessage(context, val) {
+      setTimeout(() => {
+        context.commit('setMessage', val);
+      }, 2000)
+    }
   }
 })
 
