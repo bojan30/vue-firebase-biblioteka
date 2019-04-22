@@ -389,4 +389,33 @@ input{
   border-radius: 50%;
   padding: 3px;
 }
+
+/*pagination styles*/
+.pagination{
+  margin-top: 20px;
+  /* text-align: center; */
+  display: flex;
+}
+.btn-paginate{
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: var(--border-radius); 
+  cursor: pointer;
+  margin: 0 5px;
+}
+.btn-paginate:hover{
+  background-color: #4999df;
+}
+.results{
+  margin: 0 10px;
+}
+/*select options custom*/
+.customSelect{
+  border-radius: var(--border-radius);
+  outline: none;
+  border: none;
+  box-shadow: var(--shadow);
+}
 </style>

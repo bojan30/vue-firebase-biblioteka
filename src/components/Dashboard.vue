@@ -4,11 +4,21 @@
       <button v-on:click = "openAddBookModal" class = "btn btn-add"><i class="fas fa-plus"></i>Add</button>
     </div>
     <div class="input-wrapper search">
-      <input type="text" placeholder="Search...">
+      <input v-model="search" type="text" placeholder="Search...">
     </div>
     <div class="books-wrapper">
       <h3>List of books</h3>
-      
+      <!--pagination-->
+      <div class="pagination">
+        <span class = "results">Per page: </span>
+        <select class = "customSelect" v-model = "perPage">
+          <option v-for = "(perPageOption,index) in perPageOptions" :key = "index">{{perPageOption}}</option>
+        </select>
+        <p class = "results" v-if = "paginatedBooks.length">Displaying {{ start + 1 }}-{{ start + paginatedBooks.length }} of {{ filteredBooks.length }}</p>
+        <p class = "results" v-else>No results</p>
+        <button :disabled = "pageNumber <= 0" class = "btn-paginate" v-on:click = "previousPage"><i class = "fas fa-angle-left"></i></button>
+        <button :disabled = "pageNumber >= pageCount-1" class = "btn-paginate" v-on:click = "nextPage"><i class = "fas fa-angle-right"></i></button>
+      </div>
       <table id="table">
         <thead>
           <tr>
@@ -20,7 +30,7 @@
           </tr>
         </thead>
         <tbody id="books-holder">
-          <Book v-for = "(book,index) in getBooks" v-bind:key = "index" :currentBook = "book" v-on:openDeleteModal = "openDeleteBookModal($event)" v-on:openEditModal = "openEditBookModal($event)" />
+          <Book v-for = "(book,index) in paginatedBooks" v-bind:key = "index" :currentBook = "book" v-on:openDeleteModal = "openDeleteBookModal($event)" v-on:openEditModal = "openEditBookModal($event)" />
         </tbody>
       </table>
       <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
@@ -59,10 +69,39 @@ export default {
     return {
       bookToDelete: null,
       bookToEdit: null,
+      search: '',
+      pageNumber: 0,
+      perPageOptions: [
+        5,10,50,100
+      ],
+      perPage: 10,
     }
   },
   computed: {
     ...mapGetters(['getBooks','getMessage','deleteBookModal','editBookModal','addBookModal','getMessage']),
+    filteredBooks(){
+      let lowercaseSearch = this.search.toLowerCase();
+      return this.getBooks.filter(book => {
+        return book.author.toLowerCase().match(lowercaseSearch)
+              || book.title.toLowerCase().match(lowercaseSearch)
+              || book.publisher.toLowerCase().match(lowercaseSearch)
+              || book.year.toLowerCase().match(lowercaseSearch)
+      })
+    },
+    pageCount(){
+      let total = this.filteredBooks.length;
+      let perPage = Number(this.perPage);
+      return Math.ceil(total/perPage);
+    },
+    start(){
+      return this.pageNumber * Number(this.perPage);
+    },
+    end(){
+      return this.start + Number(this.perPage);
+    },
+    paginatedBooks(){
+      return this.filteredBooks.slice(this.start,this.end);
+    }
   },
   methods: {
     openAddBookModal(){
@@ -76,6 +115,22 @@ export default {
       this.$store.commit('setEditBookModal',true);
       this.bookToEdit = bookToEdit;
     },
+    previousPage(){
+       if(this.pageNumber <= 0){
+         this.pageNumber = 0;
+       }
+       else{
+         this.pageNumber--;
+       }
+    },
+    nextPage(){
+      if(this.pageNumber >= this.pageCount - 1){
+        this.pageNumber = this.pageCount - 1;
+      }
+      else{
+        this.pageNumber++;
+      }
+    }
   }
 }
 </script>
