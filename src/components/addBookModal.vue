@@ -84,6 +84,11 @@ export default {
           this.year = null;
           this.pending = false;
           this.feedback = null;
+
+          //ovde treba dodati poruku
+          this.$store.commit('setMessage','Book successfuly added!');
+          //brisanje poruke nakon dve sekunde
+          this.$store.dispatch('setMessage',null);
         })
       }
       else{

@@ -26,17 +26,14 @@ export default {
 
 /*colors*/
 :root{
-  /* --primary: #428bca;  */
-  --primary: #33b5e5;
-  /* --primary: #2bbbad; */
-  /* --secondary: #eeeeee; */
-  --secondary: #f7f7f7;
-  --success: #43ac6a;
-  --danger: #d9534f;
+  --blue: #33b5e5;
+  --grey: #f7f7f7;
+  --green: #43ac6a;
+  --red: #d9534f;
   --text-color: #666666;
   --border-radius: 5px;
   --shadow: 0px 0px 2px 0px rgba(0,0,0,0.7);
-  --form-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+  --form-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
   --shadow-hover: 0px 15px 10px -12px rgba(0,0,0,0.7);
   --shadow-focus: 0px 0px 4px 0px rgba(0,0,0,0.7);
 }
@@ -68,7 +65,7 @@ body{
   line-height: 1.6;
   min-height: 100vh;
   color: var(--text-color);
-  background-color: var(--secondary);
+  background-color: var(--grey);
 }
 .container{
   width: 90%;
@@ -81,7 +78,7 @@ body{
   display: inline-block;
   padding: 10px 20px;
   font-size: 14px;
-  background-color: var(--primary);
+  background-color: var(--blue);
   color: #fff;
   border-radius: var(--border-radius);
   transition: all 0.1s linear;
@@ -98,7 +95,7 @@ body{
 /*nav*/
 .nav{
   height: 60px;
-  background-color: var(--primary);
+  background-color: var(--blue);
   display: flex;
   padding: 0 5%;
   justify-content: space-between;
@@ -126,7 +123,7 @@ body{
   padding: 10px 14px;
 }
 .nav-link:hover{
-  color: var(--secondary);
+  color: var(--grey);
 }
 /*form*/
 .form-wrapper{
@@ -144,9 +141,20 @@ body{
   width: 100%;
   padding: 40px;
   box-shadow: var(--form-shadow);
-  border-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
   background-color: #fff;
   max-width: 400px;
+  position: relative;
+}
+.form::before{
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  content: '';
+  top: -2px;
+  left: 0px;
+  background-color: var(--blue);
 }
 .form-group{
   margin-bottom: 20px;
@@ -166,7 +174,7 @@ input{
   margin-top: 5px;
   box-shadow: var(--shadow);
   border-radius: var(--border-radius);
-  height: 30px;
+  height: 35px;
   padding-left: 35px;
   font-size: 16px;
   color: var(--main-text-color);
@@ -187,6 +195,7 @@ input + i{
   left: 10px;
   transform: translateY(-50%);
   transition: all 0.2s linear; 
+  color: var(--blue);
 }
 input:focus + i{
   transform: scale(0);
@@ -216,7 +225,7 @@ input:focus + i{
 #table thead th{
   /* box-shadow: 0px 0px 1px 0px var(--main-text-color); */
   border-radius: var(--border-radius);
-  background-color: var(--primary);
+  background-color: var(--blue);
   color: #fff;
 }
 
@@ -231,7 +240,7 @@ input:focus + i{
   padding: 5px 10px;
 }
 #table tbody tr:nth-child(odd){
-  background-color: var(--secondary);
+  background-color: var(--grey);
 }
 
 #table tbody tr:nth-child(even){
@@ -246,11 +255,11 @@ input:focus + i{
   cursor: pointer;
 }
 .edit{
-  background-color: var(--success);
+  background-color: var(--green);
   position: relative;
 }
 .delete{
-  background-color: var(--danger);
+  background-color: var(--red);
   margin-left: 10px;
   position: relative;
 }
@@ -298,7 +307,7 @@ input:focus + i{
 
 ::-webkit-scrollbar{
   width: 10px;
-  background-color: var(--secondary);
+  background-color: var(--grey);
 }
 
 ::-webkit-scrollbar-thumb{
@@ -343,7 +352,7 @@ input:focus + i{
 
 /*feedback message styles*/
 .feedback{
-  background-color: var(--danger);
+  background-color: var(--red);
   padding: 5px; 
   color: #fff;
   border-radius: var(--border-radius);
@@ -351,12 +360,19 @@ input:focus + i{
 }
 
 .confirm{
-  background-color: var(--danger);
+  background-color: var(--red);
+}
+.confirm:hover{
+  background-color: #ee514b;
 }
 .cancel{
-  background-color: var(--secondary);
+  background-color: var(--grey);
   color: #333;
   border: 1px solid #333;
+}
+
+.cancel:hover{
+  background-color: #ddd;
 }
 
 .delete-modal-buttons{
@@ -369,9 +385,9 @@ input:focus + i{
   top: 80px;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0px 0px 3px 0px var(--success);
+  box-shadow: 0px 0px 2px 0px var(--green);
   background-color: #fff;
-  color: var(--success);
+  color: var(--green);
   padding: 5px 10px;
   border-radius: var(--border-radius);
 }
@@ -379,7 +395,7 @@ input:focus + i{
   margin-right: 5px;
 }
 .message p .fa-check{
-  border: 1px solid var(--success);
+  border: 1px solid var(--green);
   border-radius: 50%;
   padding: 3px;
 }
@@ -402,7 +418,7 @@ input:focus + i{
   font-size: 20px;
 }
 .btn-paginate:hover{
-  background-color: var(--primary);
+  background-color: var(--blue);
   color: #fff;
 }
 .results{
