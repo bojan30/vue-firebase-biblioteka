@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <div class = "logo">
-      <a href="index.html"><i class="fas fa-book"></i>Library</a>
+      <router-link v-bind:to = "{name: 'Login'}"><i class="fas fa-book"></i>Library</router-link>
     </div>
     <ul class="navbar">
       <li v-if = "!getCurrentUser" class = "nav-item"><router-link class = "nav-link" v-bind:to = "{name: 'Login'}">Login</router-link></li>

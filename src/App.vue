@@ -34,7 +34,7 @@ export default {
   --success: #43ac6a;
   --danger: #d9534f;
   --text-color: #666666;
-  --border-radius: 7px;
+  --border-radius: 5px;
   --shadow: 0px 0px 2px 0px rgba(0,0,0,0.7);
   --form-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
   --shadow-hover: 0px 15px 10px -12px rgba(0,0,0,0.7);
@@ -122,11 +122,11 @@ body{
   margin-right: 5px;
 }
 .nav-link{
-  color: #ddd;
+  color: #fff;
   padding: 10px 14px;
 }
-.router-link-exact-active{
-  color: #fff;
+.nav-link:hover{
+  color: var(--secondary);
 }
 /*form*/
 .form-wrapper{
@@ -137,9 +137,7 @@ body{
   justify-content: center;
   align-items: center;
   height: calc(100vh - 60px);
-  padding: 0px 5%;
-  overflow-y: scroll;
-  /* background-color: #fff; */
+  padding: 20px 5%;
 }
 
 .form{
@@ -172,7 +170,7 @@ input{
   padding-left: 35px;
   font-size: 16px;
   color: var(--main-text-color);
-  transition: all 0.1s linear;
+  transition: all 0.2s linear;
 }
 
 .input-wrapper{
