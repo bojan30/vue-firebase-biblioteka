@@ -5,23 +5,27 @@
         <h3>Register</h3>
       </div>
       <div class="form-group">
-        <div class="input-wrapper username">
+        <div class="input-wrapper">
           <input type="text" placeholder = "username..." v-model = "username">
+          <i class = "fas fa-user"></i>
         </div>
       </div>
       <div class="form-group">
-        <div class="input-wrapper email">
+        <div class="input-wrapper">
           <input type="email" placeholder = "email..." v-model = "email">
+          <i class = "fas fa-envelope"></i>
         </div>
       </div>
       <div class="form-group">
-        <div class="input-wrapper password">
+        <div class="input-wrapper">
           <input type="password" placeholder="password..." v-model = "password">
+          <i class = "fas fa-key"></i>
         </div>
       </div>
       <div class="form-group">
-        <div class="input-wrapper password">
+        <div class="input-wrapper">
           <input type="password" placeholder="repeat password..." v-model = "repeatPassword">
+          <i class = "fas fa-key"></i>
         </div>
       </div>
       <router-link class = "form-link" :to="{name: 'Login'}">Have account already?</router-link>

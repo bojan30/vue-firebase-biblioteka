@@ -6,27 +6,27 @@
         <h3>Edit book</h3>
       </div>
       <div class="form-group">
-        <!-- <label for="author">Author</label> -->
-        <div class="input-wrapper write">
+        <div class="input-wrapper">
           <input type="text" placeholder="author..." v-model = "author">
+          <i class = "fas fa-pencil-alt"></i>
         </div>
       </div>
       <div class="form-group">
-        <!-- <label for="title">Title</label> -->
-        <div class="input-wrapper write">
+        <div class="input-wrapper">
           <input type="text" placeholder="title..." v-model = "title">
+          <i class = "fas fa-pencil-alt"></i>
         </div>
       </div>
       <div class="form-group">
-        <!-- <label for="publisher">Publisher</label> -->
-        <div class="input-wrapper write">
+        <div class="input-wrapper">
           <input type="text" placeholder="publisher..." v-model = "publisher">
+          <i class = "fas fa-pencil-alt"></i>
         </div>
       </div>
       <div class="form-group">
-        <!-- <label for="year">Year</label> -->
-        <div class="input-wrapper write">
+        <div class="input-wrapper">
           <input type="text" placeholder="year..." v-model = "year">
+          <i class = "fas fa-pencil-alt"></i>
         </div>
       </div>
       <div v-if = "feedback" class="feedback">

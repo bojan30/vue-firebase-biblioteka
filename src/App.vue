@@ -1,7 +1,9 @@
 <template>
   <div>
     <Nav/>
-    <router-view style="animation-duration: 0.5s"/>
+    <transition name="router-animation" mode = "out-in"       enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <router-view style="animation-duration: 0.5s"/>
+    </transition>
   </div>
 </template>
 
@@ -24,16 +26,19 @@ export default {
 
 /*colors*/
 :root{
-  --primary: #428bca; 
-  /* --primary: #83b799;   */
+  /* --primary: #428bca;  */
+  --primary: #33b5e5;
+  /* --primary: #2bbbad; */
+  /* --secondary: #eeeeee; */
   --secondary: #f7f7f7;
   --success: #43ac6a;
   --danger: #d9534f;
   --text-color: #666666;
-  --border-radius: 5px;
-  --shadow: 0px 0px 3px 0px rgba(0,0,0,0.7);
+  --border-radius: 7px;
+  --shadow: 0px 0px 2px 0px rgba(0,0,0,0.7);
   --form-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
   --shadow-hover: 0px 15px 10px -12px rgba(0,0,0,0.7);
+  --shadow-focus: 0px 0px 4px 0px rgba(0,0,0,0.7);
 }
 
 /*reset*/
@@ -86,7 +91,8 @@ body{
 
 .btn:hover{
   box-shadow: var(--shadow-hover);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  background-color: #0099cc;
 }
 
 /*nav*/
@@ -97,7 +103,6 @@ body{
   padding: 0 5%;
   justify-content: space-between;
   align-items: center;
-  overflow: hidden;
 }
 .logo a{
   color: #fff;
@@ -159,45 +164,36 @@ body{
 }
 
 input{
-   width: 100%;
+  width: 100%;
   margin-top: 5px;
   box-shadow: var(--shadow);
   border-radius: var(--border-radius);
   height: 30px;
-  padding-left: 30px;
+  padding-left: 35px;
   font-size: 16px;
   color: var(--main-text-color);
-  transition: padding 0.1s linear;
+  transition: all 0.1s linear;
 }
 
 .input-wrapper{
   position: relative;
 }
-.input-wrapper::before{
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
+
+input:focus{
+  padding-left: 10px;
+  box-shadow: var(--shadow-focus);
+}
+input + i{
   position: absolute;
   top: 50%;
-  left: 6px;
+  left: 10px;
   transform: translateY(-50%);
-  transition: transform 0.1s linear;
+  transition: all 0.2s linear; 
+}
+input:focus + i{
+  transform: scale(0);
 }
 
-.input-wrapper.email::before{
-  content: "\f2b6";
-}
-.input-wrapper.password::before{
-  content: "\f13e";
-}
-.input-wrapper.username::before{
-  content: "\f007";
-}
-.input-wrapper.search::before{
-  content: "\f002";
-}
-.input-wrapper.write::before{
-  content: "\f303";
-}
 .btn-login,.btn-register{
   width: 100%;
 }
@@ -338,14 +334,14 @@ input{
 
 /*media*/
 
-@media(max-width: 568px){
+/* @media(max-width: 568px){
   .form{
     width: 100%;
   }
   body{
     font-size: 10px;
   }
-}
+} */
 
 /*feedback message styles*/
 .feedback{
@@ -395,21 +391,27 @@ input{
   margin-top: 20px;
   /* text-align: center; */
   display: flex;
+  align-items: center;
 }
 .btn-paginate{
   display: inline-block;
   padding: 5px 10px;
-  background-color: var(--primary);
-  color: #fff;
+  background-color: transparent;
+  /* color: #fff; */
   border-radius: var(--border-radius); 
   cursor: pointer;
-  margin: 0 5px;
+  /* margin: 0 5px; */
+  font-size: 20px;
 }
 .btn-paginate:hover{
-  background-color: #4999df;
+  background-color: var(--primary);
+  color: #fff;
 }
 .results{
   margin: 0 10px;
+}
+.per-page{
+  margin-right: 10px;
 }
 /*select options custom*/
 .customSelect{
@@ -417,5 +419,6 @@ input{
   outline: none;
   border: none;
   box-shadow: var(--shadow);
+  padding: 3px;
 }
 </style>

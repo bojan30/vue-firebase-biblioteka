@@ -5,13 +5,15 @@
         <h3>Login</h3>
       </div>
       <div class="form-group">
-        <div class="input-wrapper email">
+        <div class="input-wrapper">
           <input type="email" placeholder="email..." v-model = "email" >
+          <i class = "fas fa-envelope"></i>
         </div>
       </div>
       <div class="form-group">
-        <div class="input-wrapper password">
+        <div class="input-wrapper">
           <input type="password" placeholder="password..." v-model = "password">
+          <i class = "fas fa-key"></i>
         </div>
       </div>
       <router-link class = "form-link" :to="{name: 'Register'}">Need account?</router-link>

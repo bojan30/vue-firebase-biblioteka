@@ -3,14 +3,15 @@
     <div class="add-book">
       <button v-on:click = "openAddBookModal" class = "btn btn-add"><i class="fas fa-plus"></i>Add</button>
     </div>
-    <div class="input-wrapper search">
+    <div class="input-wrapper">
       <input v-model="search" type="text" placeholder="Search...">
+      <i class = "fas fa-search"></i>
     </div>
     <div class="books-wrapper">
       <h3>List of books</h3>
       <!--pagination-->
       <div class="pagination">
-        <span class = "results">Per page: </span>
+        <span class = "per-page">Per page: </span>
         <select class = "customSelect" v-model = "perPage">
           <option v-for = "(perPageOption,index) in perPageOptions" :key = "index">{{perPageOption}}</option>
         </select>
