@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Register from '@/components/Register'
+import Signup from '@/components/Signup'
 import Dashboard from '@/components/Dashboard'
 import firebase from 'firebase'
 
@@ -21,9 +21,9 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
     },
     {
       path: '/dashboard',

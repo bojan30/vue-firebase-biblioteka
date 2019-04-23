@@ -1,8 +1,11 @@
 <template>
   <div class="form-wrapper">
     <form v-on:submit.prevent = "register" class="form">
+      <div class="icon">
+        <i class = "fas fa-pencil-alt"></i>
+      </div>
       <div class="form-group">
-        <h3>Register</h3>
+        <h3>Sign up</h3>
       </div>
       <div class="form-group">
         <div class="input-wrapper">
@@ -41,7 +44,7 @@
 import firebase from 'firebase'
 import db from '../firebase/init'
 export default {
-  name: 'Register',
+  name: 'Signup',
   data () {
     return {
       username: null,

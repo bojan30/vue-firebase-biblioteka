@@ -1,6 +1,9 @@
 <template>
   <div class="form-wrapper">
     <form v-on:submit.prevent = "login" class="form">
+      <div class="icon">
+        <i class = "fas fa-user"></i>
+      </div>
       <div class="form-group">
         <h3>Login</h3>
       </div>
@@ -16,7 +19,7 @@
           <i class = "fas fa-key"></i>
         </div>
       </div>
-      <router-link class = "form-link" :to="{name: 'Register'}">Need account?</router-link>
+      <router-link class = "form-link" :to="{name: 'Signup'}">Need account?</router-link>
       <div v-if = "feedback" class="feedback">
         {{feedback}}
       </div>

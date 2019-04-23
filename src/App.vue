@@ -33,7 +33,7 @@ export default {
   --text-color: #666666;
   --border-radius: 5px;
   --shadow: 0px 0px 2px 0px rgba(0,0,0,0.7);
-  --form-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
+  --form-shadow: 0px 0px 15px 1px rgba(0,0,0,0.2);
   --shadow-hover: 0px 15px 10px -12px rgba(0,0,0,0.7);
   --shadow-focus: 0px 0px 4px 0px rgba(0,0,0,0.7);
 }
@@ -146,6 +146,21 @@ body{
   background-color: #fff;
   max-width: 400px;
   position: relative;
+}
+.form .icon{
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--blue);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
 }
 .form::before{
   position: absolute;
@@ -382,7 +397,7 @@ input:focus + i{
 
 .message{
   position: absolute;
-  top: 80px;
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0px 0px 2px 0px var(--green);
