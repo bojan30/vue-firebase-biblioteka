@@ -15,8 +15,12 @@
       </div>
       <div class="form-group">
         <div class="input-wrapper">
-          <input type="password" placeholder="password..." v-model = "password">
+          <input ref="passwordInput" type="password" placeholder="password..." v-model = "password">
           <i class = "fas fa-key"></i>
+          <div v-on:click = "togglePassword" class = "eye-icon">
+            <i v-if = "passwordVisible" class = "fas fa-eye"></i>
+            <i v-if = "!passwordVisible" class = "fas fa-eye-slash"></i>
+          </div>
         </div>
       </div>
       <router-link class = "form-link" :to="{name: 'Signup'}">Need account?</router-link>
@@ -37,7 +41,8 @@ export default {
     return {
       email: null,
       password: null,
-      feedback: null  
+      feedback: null,
+      passwordVisible: false
     }
   },
   methods: {
@@ -59,6 +64,17 @@ export default {
     else{
       this.feedback = 'You must enter all fields...'
     }
+    },
+    togglePassword(){
+      let input = this.$refs.passwordInput;
+      if(input.type === 'password'){
+        input.type = 'text';
+        this.passwordVisible = true;
+      }
+      else{
+        input.type = 'password';
+        this.passwordVisible = false;
+      }
     }
   }
 }

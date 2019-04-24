@@ -21,21 +21,29 @@
       </div>
       <div class="form-group">
         <div class="input-wrapper">
-          <input type="password" placeholder="password..." v-model = "password">
+          <input ref = "passwordInput" type="password" placeholder="password..." v-model = "password">
           <i class = "fas fa-key"></i>
+          <div v-on:click = "togglePassword" class = "eye-icon">
+            <i v-if = "passwordVisible" class = "fas fa-eye"></i>
+            <i v-if = "!passwordVisible" class = "fas fa-eye-slash"></i>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <div class="input-wrapper">
-          <input type="password" placeholder="repeat password..." v-model = "repeatPassword">
+          <input ref="repeatPasswordInput" type="password" placeholder="repeat password..." v-model = "repeatPassword">
           <i class = "fas fa-key"></i>
+          <div v-on:click = "toggleRepeatPassword" class = "eye-icon">
+            <i v-if = "repeatPasswordVisible" class = "fas fa-eye"></i>
+            <i v-if = "!repeatPasswordVisible" class = "fas fa-eye-slash"></i>
+          </div>
         </div>
       </div>
       <router-link class = "form-link" :to="{name: 'Login'}">Have account already?</router-link>
       <div v-if = "feedback" class="feedback">
         {{feedback}}
       </div>
-      <button class="btn btn-register" type="submit">Register</button>
+      <button class="btn btn-register" type="submit">Sign up</button>
     </form>
   </div>
 </template>
@@ -51,7 +59,9 @@ export default {
       email: null,
       password: null,
       repeatPassword: null,
-      feedback: null
+      feedback: null,
+      passwordVisible: false,
+      repeatPasswordVisible: false
     }
   },
   methods: {
@@ -93,6 +103,28 @@ export default {
       }
       else{
         this.feedback = 'You must enter all fields...'
+      }
+    },
+    togglePassword(){
+      let input = this.$refs.passwordInput;
+      if(input.type === 'password'){
+        input.type = 'text';
+        this.passwordVisible = true;
+      }
+      else{
+        input.type = 'password';
+        this.passwordVisible = false;
+      }
+    },
+    toggleRepeatPassword(){
+      let input = this.$refs.repeatPasswordInput;
+      if(input.type === 'password'){
+        input.type = 'text';
+        this.repeatPasswordVisible = true;
+      }
+      else{
+        input.type = 'password';
+        this.repeatPasswordVisible = false;
       }
     }
   }

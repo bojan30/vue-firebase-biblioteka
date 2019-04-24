@@ -215,6 +215,13 @@ input + i{
 input:focus + i{
   transform: scale(0);
 }
+.eye-icon{
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 
 .btn-login,.btn-register{
   width: 100%;
