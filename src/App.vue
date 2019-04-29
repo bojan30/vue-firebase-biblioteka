@@ -24,13 +24,14 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 /* @import url('https://fonts.googleapis.com/css?family=Roboto'); */
 
-/*colors*/
 :root{
+  /*colors*/
   --blue: #33b5e5;
   --grey: #f7f7f7;
   --green: #43ac6a;
   --red: #d9534f;
   --text-color: #666666;
+  /*borders and shadows*/
   --border-radius: 5px;
   --shadow: 0px 0px 2px 0px rgba(0,0,0,0.7);
   --form-shadow: 0px 0px 15px 1px rgba(0,0,0,0.2);
@@ -251,6 +252,7 @@ input:focus + i{
   border-radius: var(--border-radius);
   background-color: var(--blue);
   color: #fff;
+  cursor: pointer;
 }
 
 #table td{

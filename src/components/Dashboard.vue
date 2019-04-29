@@ -136,7 +136,7 @@ export default {
       if(this.paginatedBooks.length === 0 && this.pageNumber > 0){
         this.pageNumber--;
       }
-    }
+    },
   },
   updated(){
     this.updatePageNumber();
