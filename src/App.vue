@@ -67,6 +67,9 @@ body{
   color: var(--text-color);
   background-color: var(--grey);
 }
+html{
+  font-size: 16px;
+}
 .container{
   width: 90%;
   margin: auto;
@@ -76,8 +79,8 @@ body{
 
 .btn{
   display: inline-block;
-  padding: 10px 20px;
-  font-size: 14px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
   background-color: var(--blue);
   color: #fff;
   border-radius: var(--border-radius);
@@ -103,7 +106,7 @@ body{
 }
 .logo a{
   color: #fff;
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 .logo .fa-book{
   margin-right: 10px;
@@ -189,9 +192,9 @@ input{
   margin-top: 5px;
   box-shadow: var(--shadow);
   border-radius: var(--border-radius);
-  height: 35px;
+  height: 2rem;
   padding-left: 35px;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--main-text-color);
   transition: all 0.2s linear;
 }
@@ -241,7 +244,6 @@ input:focus + i{
   width: 100%;
   text-align: left;
   margin-top: 20px;
-  /* border-collapse: collapse; */
 }
 
 #table thead th{
@@ -258,6 +260,9 @@ input:focus + i{
   /* box-shadow: 0px 0px 1px var(--main-text-color); */
   border-radius: var(--border-radius);
 }
+.modify{
+    min-width: 100px;
+  }
 #table thead th{
   padding: 5px 10px;
 }
@@ -344,6 +349,7 @@ input:focus + i{
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.2);
+  padding: 40px;
 }
 .modal .form{
   position: absolute;
@@ -361,17 +367,6 @@ input:focus + i{
   color: var(--text-color);
 }
 
-/*media*/
-
-/* @media(max-width: 568px){
-  .form{
-    width: 100%;
-  }
-  body{
-    font-size: 10px;
-  }
-} */
-
 /*feedback message styles*/
 .feedback{
   background-color: var(--red);
@@ -379,6 +374,7 @@ input:focus + i{
   color: #fff;
   border-radius: var(--border-radius);
   margin-bottom: 10px;
+  font-size: 0.9rem;
 }
 
 .confirm{
@@ -437,7 +433,7 @@ input:focus + i{
   border-radius: var(--border-radius); 
   cursor: pointer;
   /* margin: 0 5px; */
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 .btn-paginate:hover{
   background-color: var(--blue);
@@ -456,5 +452,69 @@ input:focus + i{
   border: none;
   box-shadow: var(--shadow);
   padding: 3px;
+}
+
+/*media queries*/
+@media(max-width: 576px){
+  /* Force table to not be like tables anymore */
+	#table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+  #table tr{
+    margin-bottom: 10px;
+    border: 1px solid #999;
+    padding: 2px;
+    border-radius: var(--border-radius);
+  }
+  #table td { 
+		/* Behave  like a "row" */
+    border: none;
+		position: relative;
+		padding-left: 50%; 
+    border-bottom: 1px solid #999;
+    border-radius: 0px;
+  }
+  #table td:last-child{
+    border: none;
+  }
+	#table td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Author"; }
+	td:nth-of-type(2):before { content: "Title"; }
+	td:nth-of-type(3):before { content: "Publisher"; }
+	td:nth-of-type(4):before { content: "Year"; }
+  td:nth-of-type(5):before {content: "Modify"}
+}
+@media(max-width: 768px){
+  html{
+    font-size: 14px;
+  }
+}
+@media(max-width: 576px){
+  html{
+    font-size: 12px;
+  }
+  .form{
+    width: 90%;
+  }
 }
 </style>
