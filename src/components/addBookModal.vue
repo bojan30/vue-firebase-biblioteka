@@ -43,34 +43,6 @@
 </template>
 
 <script>
-/*
-  else{
-            //ako je sve u redu onda izvrsi ubacivanje knjige
-            this.pending = true;
-        db.collection('books').add({
-          author: this.author,
-          title: this.title,
-          publisher: this.publisher,
-          year: this.year,
-          user_id: this.getUserProfile.user_id,
-        })
-        .then(()=>{
-          //resetuj input polja
-          this.author = null;
-          this.title = null;
-          this.publisher = null;
-          this.year = null;
-          this.pending = false;
-          this.feedback = null;
-
-          //ovde treba dodati poruku
-          this.$store.commit('setMessage','Book successfuly added!');
-          //brisanje poruke nakon dve sekunde
-          this.$store.dispatch('setMessage',null);
-        })
-          }
-        })
-*/
 import firebase from 'firebase'
 import db from '../firebase/init'
 import {mapGetters} from 'vuex'
