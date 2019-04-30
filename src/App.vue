@@ -253,6 +253,25 @@ input:focus + i{
   background-color: var(--blue);
   color: #fff;
   cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.category-icon{
+  position: absolute;
+  right: 10px;
+  /* transform: translateY(-50%); */
+  pointer-events: none;
+  color: var(--text-color);
+}
+.category-icon.up{
+  top: 15%;
+}
+.category-icon.down{
+  bottom: 15%;
+}
+.category-icon.active{
+  color: #fff;
 }
 
 #table td{
@@ -402,7 +421,7 @@ input:focus + i{
 
 .message{
   position: absolute;
-  top: 60px;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0px 0px 2px 0px var(--green);

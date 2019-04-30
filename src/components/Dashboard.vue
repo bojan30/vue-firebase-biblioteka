@@ -23,10 +23,26 @@
       <table id="table">
         <thead>
           <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Publisher</th>
-            <th>Year</th>
+            <th v-on:click = "sortBooks">
+              Author
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.author.active && !categories.author.ascending}"></i>
+              <i  class  = "fas fa-caret-down category-icon down" :class = "{active: categories.author.active && categories.author.ascending}"></i>
+            </th>
+            <th v-on:click = "sortBooks">
+              Title
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.title.active && !categories.title.ascending}"></i>
+              <i class  = "fas fa-caret-down category-icon down" :class = "{active: categories.title.active && categories.title.ascending}"></i>
+            </th>
+            <th v-on:click = "sortBooks">
+              Publisher
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.publisher.active && !categories.publisher.ascending}"></i>
+              <i class  = "fas fa-caret-down category-icon down" :class = "{active: categories.publisher.active && categories.publisher.ascending}"></i>
+            </th>
+            <th v-on:click = "sortBooks">
+              Year
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.year.active && !categories.year.ascending}"></i>
+              <i class  = "fas fa-caret-down category-icon down" :class = "{active: categories.year.active && categories.year.ascending}"></i>
+            </th>
             <th>Modify</th>
           </tr>
         </thead>
@@ -76,6 +92,25 @@ export default {
         5,10,50,100
       ],
       perPage: 10,
+      //kategorije sortiranja
+      categories: {
+        author: {
+          ascending: true,
+          active: true
+        },
+        title: {
+          ascending: false,
+          active: false
+        },
+        publisher: {
+          ascending: false,
+          active: false
+        },
+        year: {
+          ascending: false,
+          active: false
+        }
+      }
     }
   },
   computed: {
@@ -137,6 +172,50 @@ export default {
         this.pageNumber--;
       }
     },
+    //resetuje sva "active" svojstva na false
+    resetActive(){
+      Object.keys(this.categories).forEach(category=>{
+        this.categories[category].active = false;
+      })
+    },
+    sortBooks(){
+      //kategorija za sortiranje
+      const category = event.target.innerText.toLowerCase();
+      //prvo resetuj sva active svojstva
+      this.resetActive();
+      //okreni smer sortiranja
+      //aktiviraj samo kategoriju na ciji th je kliknuto
+      this.categories[category].active = true;
+      this.categories[category].ascending = !this.categories[category].ascending;
+      this.getBooks.sort((book1,book2)=>{
+        //pretvaranje svega u lowercase
+        let one = book1[category].toLowerCase();
+        let two  = book2[category].toLowerCase();
+        //sort
+        if(this.categories[category].ascending){
+          if(one > two){
+            return 1;
+          }
+          else if(one < two){
+            return -1;
+          }
+          else{
+            return 0;
+          }
+        }
+        else{
+          if(one > two){
+            return -1;
+          }
+          else if(one < two){
+            return 1;
+          }
+          else{
+            return 0;
+          }  
+        }
+      })
+    }
   },
   updated(){
     this.updatePageNumber();
