@@ -240,11 +240,14 @@ input:focus + i{
 .book-wrapper h3{
   margin-bottom: 20px;
 }
-
+.table-wrapper{
+  overflow-x: scroll;
+}
 #table{
   width: 100%;
   text-align: left;
   margin-top: 20px;
+  min-width: 700px;
 }
 
 #table thead th{
@@ -356,6 +359,7 @@ input:focus + i{
 ::-webkit-scrollbar{
   width: 10px;
   background-color: var(--grey);
+  height: 10px;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -377,6 +381,7 @@ input:focus + i{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 10;
 }
 .fa-times{
   position: absolute;
@@ -420,7 +425,7 @@ input:focus + i{
 }
 
 .message{
-  position: absolute;
+  position: fixed;
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
@@ -476,61 +481,7 @@ input:focus + i{
 }
 
 /*media queries*/
-@media(max-width: 576px){
-  /* Force table to not be like tables anymore */
-	#table, thead, tbody, th, td, tr { 
-		display: block; 
-	}
-	
-	/* Hide table headers (but not display: none;, for accessibility) */
-	thead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-  #table tr{
-    margin-bottom: 10px;
-    border: 1px solid #999;
-    padding: 2px;
-    border-radius: var(--border-radius);
-  }
-  #table td { 
-		/* Behave  like a "row" */
-    border: none;
-		position: relative;
-		padding-left: 50%; 
-    border-bottom: 1px solid #999;
-    border-radius: 0px;
-  }
-  #table td:last-child{
-    border: none;
-  }
-	#table td:before { 
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-	}
-	
-	/*
-	Label the data
-	*/
-	td:nth-of-type(1):before { content: "Author"; }
-	td:nth-of-type(2):before { content: "Title"; }
-	td:nth-of-type(3):before { content: "Publisher"; }
-	td:nth-of-type(4):before { content: "Year"; }
-  td:nth-of-type(5):before {content: "Modify"}
-}
 @media(max-width: 768px){
-  html{
-    font-size: 14px;
-  }
-}
-@media(max-width: 576px){
   html{
     font-size: 12px;
   }

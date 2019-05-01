@@ -62,7 +62,6 @@ export default {
       if(this.author && this.title && this.publisher && this.year){
         //editovanje
         this.pending = true;
-        this.close();
         db.collection('books').doc(this.bookToEdit.id).update({
           author: this.author,
           title: this.title,
@@ -70,6 +69,8 @@ export default {
           year: this.year
         })
         .then(()=>{
+          this.$emit('resetSort');
+          this.close();
           //ovde treba dodati poruku
           this.$store.commit('setMessage','Book successfuly edited!');
           //brisanje poruke nakon dve sekunde

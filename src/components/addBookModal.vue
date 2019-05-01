@@ -100,6 +100,8 @@ export default {
               this.$store.commit('setMessage','Book successfuly added!');
               //brisanje poruke nakon dve sekunde
               this.$store.dispatch('setMessage',null);
+              //emituj event za reset sortiranja
+              this.$emit('resetSort');
             })
           }
         })

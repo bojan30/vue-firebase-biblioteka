@@ -20,28 +20,29 @@
         <button :disabled = "pageNumber <= 0" class = "btn-paginate" v-on:click = "previousPage"><i class = "fas fa-angle-left"></i></button>
         <button :disabled = "pageNumber >= pageCount-1" class = "btn-paginate" v-on:click = "nextPage"><i class = "fas fa-angle-right"></i></button>
       </div>
-      <table id="table">
+      <div class="table-wrapper">
+        <table id="table">
         <thead>
           <tr>
-            <th v-on:click = "sortBooks">
+            <th v-on:click = "sortBooks('author')">
               Author
-              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.author.active && !categories.author.ascending}"></i>
-              <i  class  = "fas fa-caret-down category-icon down" :class = "{active: categories.author.active && categories.author.ascending}"></i>
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: currentSort === 'author' && !ascending}"></i>
+              <i  class  = "fas fa-caret-down category-icon down" :class = "{active: currentSort === 'author' && ascending}"></i>
             </th>
-            <th v-on:click = "sortBooks">
+            <th v-on:click = "sortBooks('title')">
               Title
-              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.title.active && !categories.title.ascending}"></i>
-              <i class  = "fas fa-caret-down category-icon down" :class = "{active: categories.title.active && categories.title.ascending}"></i>
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: currentSort === 'title' && !ascending}"></i>
+              <i class  = "fas fa-caret-down category-icon down" :class = "{active: currentSort === 'title' && ascending}"></i>
             </th>
-            <th v-on:click = "sortBooks">
+            <th v-on:click = "sortBooks('publisher')">
               Publisher
-              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.publisher.active && !categories.publisher.ascending}"></i>
-              <i class  = "fas fa-caret-down category-icon down" :class = "{active: categories.publisher.active && categories.publisher.ascending}"></i>
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: currentSort === 'publisher' && !ascending}"></i>
+              <i class  = "fas fa-caret-down category-icon down" :class = "{active: currentSort === 'publisher' && ascending}"></i>
             </th>
-            <th v-on:click = "sortBooks">
+            <th v-on:click = "sortBooks('year')">
               Year
-              <i class  = "fas fa-caret-up category-icon up" :class = "{active: categories.year.active && !categories.year.ascending}"></i>
-              <i class  = "fas fa-caret-down category-icon down" :class = "{active: categories.year.active && categories.year.ascending}"></i>
+              <i class  = "fas fa-caret-up category-icon up" :class = "{active: currentSort === 'year' && !ascending}"></i>
+              <i class  = "fas fa-caret-down category-icon down" :class = "{active: currentSort === 'year' && ascending}"></i>
             </th>
             <th>Modify</th>
           </tr>
@@ -50,14 +51,15 @@
           <Book v-for = "(book,index) in paginatedBooks" v-bind:key = "index" :currentBook = "book" v-on:openDeleteModal = "openDeleteBookModal($event)" v-on:openEditModal = "openEditBookModal($event)" />
         </tbody>
       </table>
+      </div>
       <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <addBookModal style="animation-duration: 0.3s" v-if = "addBookModal"/>
+      <addBookModal v-on:resetSort = "resetSort" style="animation-duration: 0.3s" v-if = "addBookModal"/>
     </transition>
     <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <deleteBookModal style="animation-duration: 0.3s" :bookToDelete = "bookToDelete" v-if = "deleteBookModal"/>
     </transition>
     <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <editBookModal style="animation-duration: 0.3s" :bookToEdit = "bookToEdit" v-if = "editBookModal"/>
+      <editBookModal v-on:resetSort = "resetSort" style="animation-duration: 0.3s" :bookToEdit = "bookToEdit" v-if = "editBookModal"/>
     </transition>
     <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <Message v-if = "getMessage" :message = "getMessage" style="animation-duration: 0.3s"/>
@@ -92,25 +94,9 @@ export default {
         5,10,50,100
       ],
       perPage: 10,
-      //kategorije sortiranja
-      categories: {
-        author: {
-          ascending: true,
-          active: true
-        },
-        title: {
-          ascending: false,
-          active: false
-        },
-        publisher: {
-          ascending: false,
-          active: false
-        },
-        year: {
-          ascending: false,
-          active: false
-        }
-      }
+      //trenutna kategorija sortiranja i smer sortiranja
+      currentSort: null,
+      ascending: true
     }
   },
   computed: {
@@ -172,50 +158,36 @@ export default {
         this.pageNumber--;
       }
     },
-    //resetuje sva "active" svojstva na false
-    resetActive(){
-      Object.keys(this.categories).forEach(category=>{
-        this.categories[category].active = false;
-      })
-    },
-    sortBooks(){
+    sortBooks(category){
+      //prvo vrati na prvu stranu
+      this.pageNumber = 0;
       //kategorija za sortiranje
-      const category = event.target.innerText.toLowerCase();
-      //prvo resetuj sva active svojstva
-      this.resetActive();
-      //okreni smer sortiranja
-      //aktiviraj samo kategoriju na ciji th je kliknuto
-      this.categories[category].active = true;
-      this.categories[category].ascending = !this.categories[category].ascending;
+      if(category === this.currentSort){
+        this.ascending = !this.ascending;
+      }
+      this.currentSort = category;
       this.getBooks.sort((book1,book2)=>{
         //pretvaranje svega u lowercase
         let one = book1[category].toLowerCase();
         let two  = book2[category].toLowerCase();
         //sort
-        if(this.categories[category].ascending){
-          if(one > two){
-            return 1;
-          }
-          else if(one < two){
-            return -1;
-          }
-          else{
-            return 0;
-          }
+        if(this.ascending){
+          if(one > two) return 1;
+          else if(one < two) return -1;
+          else return 0;
         }
         else{
-          if(one > two){
-            return -1;
-          }
-          else if(one < two){
-            return 1;
-          }
-          else{
-            return 0;
-          }  
+          if(one > two) return -1;
+          else if(one < two) return 1;
+          else return 0;  
         }
       })
-    }
+    },
+    resetSort(){
+      this.currentSort = 'author';
+      this.ascending = false;
+      this.sortBooks(this.currentSort);
+    },
   },
   updated(){
     this.updatePageNumber();

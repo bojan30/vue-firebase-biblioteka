@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(user => {
     store.dispatch('fetchUserProfile')
 
     //handle real time changes in db
-    db.collection('books').where('user_id', '==', user.uid).orderBy('author').onSnapshot(snapshot => {
+    db.collection('books').where('user_id', '==', user.uid).onSnapshot(snapshot => {
       let booksArray = [];
       snapshot.forEach(doc => {
         let book = doc.data();
