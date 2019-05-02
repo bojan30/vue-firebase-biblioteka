@@ -36,6 +36,7 @@ const router = new Router({
   ]
 })
 
+//provera autentikacije, sprecavanje da se udje na glavnu stranicu ako nije ulogovan korisnik
 router.beforeEach((to, from, next) => {
   //provera da li postoji putanja koja zahteva autentikaciju
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)

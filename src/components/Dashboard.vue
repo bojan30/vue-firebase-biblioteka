@@ -20,6 +20,7 @@
         <button :disabled = "pageNumber <= 0" class = "btn-paginate" v-on:click = "previousPage"><i class = "fas fa-angle-left"></i></button>
         <button :disabled = "pageNumber >= pageCount-1" class = "btn-paginate" v-on:click = "nextPage"><i class = "fas fa-angle-right"></i></button>
       </div>
+      <!--prikaz tabele-->
       <div class="table-wrapper">
         <table id="table">
         <thead>
@@ -48,22 +49,50 @@
           </tr>
         </thead>
         <tbody id="books-holder">
-          <Book v-for = "(book,index) in paginatedBooks" v-bind:key = "index" :currentBook = "book" v-on:openDeleteModal = "openDeleteBookModal($event)" v-on:openEditModal = "openEditBookModal($event)" />
+          <!--prikaz svih knjiga-->
+          <Book 
+            v-for = "(book,index) in paginatedBooks" 
+            v-bind:key = "index" 
+            :currentBook = "book" 
+            v-on:openDeleteModal = "openDeleteBookModal($event)" 
+            v-on:openEditModal = "openEditBookModal($event)" 
+          />
         </tbody>
       </table>
       </div>
       <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <addBookModal v-on:resetSort = "resetSort" style="animation-duration: 0.3s" v-if = "addBookModal"/>
-    </transition>
-    <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <deleteBookModal style="animation-duration: 0.3s" :bookToDelete = "bookToDelete" v-if = "deleteBookModal"/>
-    </transition>
-    <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <editBookModal v-on:resetSort = "resetSort" style="animation-duration: 0.3s" :bookToEdit = "bookToEdit" v-if = "editBookModal"/>
-    </transition>
-    <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <Message v-if = "getMessage" :message = "getMessage" style="animation-duration: 0.3s"/>
-    </transition>
+        <!--dodavanje novih knjiga-->
+        <addBookModal 
+          v-on:resetSort = "resetSort" 
+          v-if = "addBookModal"
+          style="animation-duration: 0.3s" 
+        />
+      </transition>
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <!--brisanje knjiga-->
+        <deleteBookModal 
+          style="animation-duration: 0.3s" 
+          :bookToDelete = "bookToDelete" 
+          v-if = "deleteBookModal"
+        />
+      </transition>
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <!--editovanje knjiga-->
+        <editBookModal 
+          v-on:resetSort = "resetSort"
+          style="animation-duration: 0.3s" 
+          :bookToEdit = "bookToEdit" 
+          v-if = "editBookModal"
+        />
+      </transition>
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <!--prikaz poruke usled promene u bazi-->
+        <Message 
+          v-if = "getMessage" 
+          :message = "getMessage" 
+          style="animation-duration: 0.3s"
+        />
+      </transition>
     </div>
   </div>
 </template>
@@ -90,9 +119,11 @@ export default {
       bookToEdit: null,
       search: '',
       pageNumber: 0,
+      //opcije za broj knjiga po strani
       perPageOptions: [
         5,10,50,100
       ],
+      //default opcija(deset knjiga po strani)
       perPage: 10,
       //trenutna kategorija sortiranja i smer sortiranja
       currentSort: null,
@@ -101,6 +132,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getBooks','getMessage','deleteBookModal','editBookModal','addBookModal','getMessage']),
+    //vraca filtrirane knjige
     filteredBooks(){
       let lowercaseSearch = this.search.toLowerCase();
       return this.getBooks.filter(book => {
@@ -110,22 +142,27 @@ export default {
               || book.year.toLowerCase().match(lowercaseSearch)
       })
     },
+    //racuna koliko ima stranica
     pageCount(){
       let total = this.filteredBooks.length;
       let perPage = Number(this.perPage);
       return Math.ceil(total/perPage);
     },
+    //broj prve knjige koju treba prikazati
     start(){
       return this.pageNumber * Number(this.perPage);
     },
+    //broj poslednje knjige koju treba prikazati
     end(){
       return this.start + Number(this.perPage);
     },
+    //niz knjiga koje treba trenutno prikazati
     paginatedBooks(){
       return this.filteredBooks.slice(this.start,this.end);
     }
   },
   methods: {
+    //metode za kontrolisanje modala(state-u se salje informacija da treba otvoriti odredjeni modal)
     openAddBookModal(){
       this.$store.commit('setAddBookModal',true);
     },
@@ -137,6 +174,7 @@ export default {
       this.$store.commit('setEditBookModal',true);
       this.bookToEdit = bookToEdit;
     },
+    //metode za promenu trenutne strane
     previousPage(){
        if(this.pageNumber <= 0){
          this.pageNumber = 0;
@@ -159,7 +197,7 @@ export default {
       }
     },
     sortBooks(category){
-      //prvo vrati na prvu stranu
+      //vrati na prvu stranu
       this.pageNumber = 0;
       //kategorija za sortiranje
       if(category === this.currentSort){
@@ -183,6 +221,7 @@ export default {
         }
       })
     },
+    //ako se doda nova knjiga ili ako se edituje neka od knjiga, sortiranje se vraca na default
     resetSort(){
       this.currentSort = 'author';
       this.ascending = false;
@@ -190,10 +229,9 @@ export default {
     },
   },
   updated(){
+    //nakon update-a stranice proveri da li treba promeniti broj stranice
+    //u slucaju da je obrisana poslednja knjiga na stranici
     this.updatePageNumber();
   }
 }
 </script>
-
-<style scoped>
-</style>

@@ -1,5 +1,5 @@
 <template>
-    <tr>
+  <tr>
     <td>{{currentBook.author}}</td>
     <td>{{currentBook.title}}</td>
     <td>{{currentBook.publisher}}</td>
@@ -28,14 +28,13 @@ export default {
   ],
   methods: {
     openDeleteBookModal(){
+      //javlja dashboard komponenti da treba da se otvori modal i salje informaciju o knjizi koju treba obrisati
       this.$emit('openDeleteModal',this.currentBook);
     },
     openEditBookModal(){
+      //javlja dashboard komponenti da treba da se otvori modal i salje informaciju o knjizi koju treba etitovati
       this.$emit('openEditModal',this.currentBook);
     }  
   }
 }
 </script>
-
-<style>
-</style>

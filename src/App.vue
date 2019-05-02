@@ -1,7 +1,7 @@
 <template>
   <div>
     <Nav/>
-    <transition name="router-animation" mode = "out-in"       enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+    <transition name="router-animation" mode = "out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
       <router-view style="animation-duration: 0.5s"/>
     </transition>
   </div>
@@ -22,16 +22,15 @@ export default {
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css');
 /*font*/
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-/* @import url('https://fonts.googleapis.com/css?family=Roboto'); */
 
 :root{
-  /*colors*/
+  /*boje*/
   --blue: #33b5e5;
   --grey: #f7f7f7;
   --green: #43ac6a;
   --red: #d9534f;
   --text-color: #666666;
-  /*borders and shadows*/
+  /*borderi i senke*/
   --border-radius: 5px;
   --shadow: 0px 0px 2px 0px rgba(0,0,0,0.7);
   --form-shadow: 0px 0px 15px 1px rgba(0,0,0,0.2);
@@ -60,7 +59,7 @@ input{
   display: block;
 }
 
-/*global*/
+/*globalni stilovi*/
 body{
   font-family: 'Poppins';
   line-height: 1.6;
@@ -96,40 +95,7 @@ html{
   background-color: #0099cc;
 }
 
-/*nav*/
-.nav{
-  height: 60px;
-  background-color: var(--blue);
-  display: flex;
-  padding: 0 5%;
-  justify-content: space-between;
-  align-items: center;
-}
-.logo a{
-  color: #fff;
-  font-size: 1.2rem;
-}
-.logo .fa-book{
-  margin-right: 10px;
-}
-.navbar{
-  display: flex;
-}
-.nav-item.username{
-  color: #fff;
-  margin-right: 10px;
-}
-.nav-item.username .fa-user{
-  margin-right: 5px;
-}
-.nav-link{
-  color: #fff;
-  padding: 10px 14px;
-}
-.nav-link:hover{
-  color: var(--grey);
-}
-/*form*/
+/*forme*/
 .form-wrapper{
   background-size: cover;
   background-repeat: no-repeat;
@@ -226,32 +192,60 @@ input:focus + i{
   transform: translateY(-50%);
   cursor: pointer;
 }
-
 .btn-login,.btn-register{
   width: 100%;
 }
 
-/*book table*/
+/*nav*/
+.nav{
+  height: 60px;
+  background-color: var(--blue);
+  display: flex;
+  padding: 0 5%;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo a{
+  color: #fff;
+  font-size: 1.2rem;
+}
+.logo .fa-book{
+  margin-right: 10px;
+}
+.navbar{
+  display: flex;
+}
+.nav-item.username{
+  color: #fff;
+  margin-right: 10px;
+}
+.nav-item.username .fa-user{
+  margin-right: 5px;
+}
+.nav-link{
+  color: #fff;
+  padding: 10px 14px;
+}
+.nav-link:hover{
+  color: var(--grey);
+}
 
+/*tabela*/
 .books-wrapper{
   margin-top: 20px;
 }
-
 .book-wrapper h3{
   margin-bottom: 20px;
 }
 .table-wrapper{
-  overflow-x: scroll;
+  margin-top: 20px;
+  padding-bottom: 30px;
 }
 #table{
   width: 100%;
   text-align: left;
-  margin-top: 20px;
-  min-width: 700px;
 }
-
 #table thead th{
-  /* box-shadow: 0px 0px 1px 0px var(--main-text-color); */
   border-radius: var(--border-radius);
   background-color: var(--blue);
   color: #fff;
@@ -259,11 +253,9 @@ input:focus + i{
   user-select: none;
   position: relative;
 }
-
 .category-icon{
   position: absolute;
   right: 10px;
-  /* transform: translateY(-50%); */
   pointer-events: none;
   color: var(--text-color);
 }
@@ -276,12 +268,9 @@ input:focus + i{
 .category-icon.active{
   color: #fff;
 }
-
 #table td{
   padding: 5px 10px;
-  /* box-shadow: var(--shadow); */
   border: 1px solid #999;
-  /* box-shadow: 0px 0px 1px var(--main-text-color); */
   border-radius: var(--border-radius);
 }
 .modify{
@@ -297,7 +286,6 @@ input:focus + i{
 #table tbody tr:nth-child(even){
   background-color: #fff;
 }
-
 /*modify buttons*/
 .edit,.delete{
   padding: 8px;
@@ -354,19 +342,19 @@ input:focus + i{
   margin-right: 10px;
 }
 
-/*custom scrollbar*/
+/*skrolbar stilovi*/
 
 ::-webkit-scrollbar{
   width: 10px;
   background-color: var(--grey);
   height: 10px;
 }
-
 ::-webkit-scrollbar-thumb{
   background-color: #888;
   border-radius: 4px;
 }
 
+/*modal*/
 .modal{
   position: fixed;
   top: 0;
@@ -393,7 +381,7 @@ input:focus + i{
   color: var(--text-color);
 }
 
-/*feedback message styles*/
+/*feedback*/
 .feedback{
   background-color: var(--red);
   padding: 5px; 
@@ -414,7 +402,6 @@ input:focus + i{
   color: #333;
   border: 1px solid #333;
 }
-
 .cancel:hover{
   background-color: #ddd;
 }
@@ -424,6 +411,7 @@ input:focus + i{
   justify-content: space-between;
 }
 
+/*stilovi za poruke*/
 .message{
   position: fixed;
   top: 40px;
@@ -444,7 +432,7 @@ input:focus + i{
   padding: 3px;
 }
 
-/*pagination styles*/
+/*stilovi za paginator*/
 .pagination{
   margin-top: 20px;
   /* text-align: center; */
@@ -455,10 +443,8 @@ input:focus + i{
   display: inline-block;
   padding: 5px 10px;
   background-color: transparent;
-  /* color: #fff; */
   border-radius: var(--border-radius); 
   cursor: pointer;
-  /* margin: 0 5px; */
   font-size: 1.2rem;
 }
 .btn-paginate:hover{
@@ -471,7 +457,7 @@ input:focus + i{
 .per-page{
   margin-right: 10px;
 }
-/*select options custom*/
+/*select stilovi*/
 .customSelect{
   border-radius: var(--border-radius);
   outline: none;
@@ -481,12 +467,52 @@ input:focus + i{
 }
 
 /*media queries*/
+@media(max-width: 992px){
+  html{
+    font-size: 14px;
+  }
+}
 @media(max-width: 768px){
   html{
     font-size: 12px;
   }
   .form{
     width: 90%;
+  }
+  .table-wrapper{
+    overflow-x: scroll;
+    padding:5px 5px 30px 5px;
+  }
+  #table{
+    min-width: 700px;
+  }
+}
+@media(max-width: 576px){
+  /*prikaz tabele kao block elementa*/
+  #table{
+    border-collapse: collapse;
+    text-align: center;
+    min-width: 200px;
+  }
+  #table thead tr, #table tbody tr{
+    margin-bottom: 20px;
+  }
+  #table thead th, #table tr, #table td{
+    display: block;
+    border-radius: 0px;
+  }
+  #table tbody tr{
+    box-shadow: var(--shadow);
+    border-radius: 2px;
+  }
+  #table td{
+    border: none;
+  }
+  #table thead th{
+    margin-bottom: 2px;
+  }
+  .delete,.edit{
+    font-size: 10px;
   }
 }
 </style>

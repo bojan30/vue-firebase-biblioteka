@@ -12,7 +12,7 @@ firebase.auth().onAuthStateChanged(user => {
     store.commit('setCurrentUser', user)
     store.dispatch('fetchUserProfile')
 
-    //handle real time changes in db
+    //prati promene koje se desavaju u bazi, i reaguje na te promene bez refreshovanja stranice(real time changes)
     db.collection('books').where('user_id', '==', user.uid).onSnapshot(snapshot => {
       let booksArray = [];
       snapshot.forEach(doc => {
@@ -26,6 +26,7 @@ firebase.auth().onAuthStateChanged(user => {
 })
 
 const store = new Vuex.Store({
+  //stanje aplikacije(ovde su svi objekti koje koristi veci broj komponenata)
   state: {
     currentUser: null,
     userProfile: {},
@@ -35,29 +36,17 @@ const store = new Vuex.Store({
     deleteBookModal: false,
     message: null
   },
+  //getters metode za pristup state-u
   getters: {
-    getCurrentUser: (state) => {
-      return state.currentUser;
-    },
-    getUserProfile: (state) => {
-      return state.userProfile;
-    },
-    getBooks: (state) => {
-      return state.books
-    },
-    editBookModal: (state) => {
-      return state.editBookModal;
-    },
-    deleteBookModal: (state) => {
-      return state.deleteBookModal;
-    },
-    addBookModal: (state) => {
-      return state.addBookModal;
-    },
-    getMessage: (state)=>{
-      return state.message;
-    },
+    getCurrentUser: (state) => state.currentUser,
+    getUserProfile: (state) => state.userProfile,
+    getBooks: (state) => state.books,
+    editBookModal: (state) => state.editBookModal,
+    deleteBookModal: (state) => state.deleteBookModal,
+    addBookModal: (state) => state.addBookModal,
+    getMessage: (state) => state.message,
   },
+  //modifikovanje state objekata(samo mutacijama je dozvoljen pristup state-u)
   mutations: {
     setCurrentUser(state, val) {
       state.currentUser = val
@@ -81,6 +70,7 @@ const store = new Vuex.Store({
       state.message = val;
     },
   },
+  //akcije(asinhrone metode)
   actions: {
     clearData({ commit }) {
       commit('setCurrentUser', null);

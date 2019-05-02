@@ -10,7 +10,3 @@ export default {
   props: ['message'],
 }
 </script>
-
-<style>
-
-</style>
