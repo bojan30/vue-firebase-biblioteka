@@ -223,9 +223,11 @@ export default {
     },
     //ako se doda nova knjiga ili ako se edituje neka od knjiga, sortiranje se vraca na default
     resetSort(){
-      this.currentSort = 'author';
-      this.ascending = false;
-      this.sortBooks(this.currentSort);
+      if(this.currentSort){
+        //obrni smer sortiranja zato sto ce se unutar funkcije jos jednom redosled okrenuti, da bi se sve vratilo kako je bilo
+        this.ascending = !this.ascending;
+        this.sortBooks(this.currentSort);
+      }
     },
   },
   updated(){
