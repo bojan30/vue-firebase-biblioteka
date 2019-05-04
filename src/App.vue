@@ -207,9 +207,13 @@ input:focus + i{
 }
 .logo a{
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
 }
-.logo .fa-book{
+.logo a img{
+  width: 1.3rem;
+  display: inline-block;
   margin-right: 10px;
 }
 .navbar{
@@ -417,17 +421,18 @@ input:focus + i{
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0px 0px 2px 0px var(--green);
-  background-color: #fff;
-  color: var(--green);
+  background-color:var(--green);
+  color: #fff;
   padding: 5px 10px;
   border-radius: var(--border-radius);
+  z-index: 100;
+  font-size: 0.9rem;
 }
 .message p span{
   margin-right: 5px;
 }
 .message p .fa-check{
-  border: 1px solid var(--green);
+  border: 1px solid #fff;
   border-radius: 50%;
   padding: 3px;
 }
