@@ -2,6 +2,14 @@
 
 > Simple Vue Firestore book app
 
+### Project Overview
+* Complete login and signup functionality(uses built in Firebase auth)
+* Basic CRUD oerations(enter, read, update and delete)
+* Filtering(search)
+* Sorting(sort by author, title, publisher or year)
+* Pagination(display one page at the time, basic pagination functionality)
+* ...
+
 ## Build Setup
 
 ``` bash
@@ -19,3 +27,5 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+

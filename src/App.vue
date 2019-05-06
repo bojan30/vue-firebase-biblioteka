@@ -204,6 +204,7 @@ input:focus + i{
   padding: 0 5%;
   justify-content: space-between;
   align-items: center;
+  box-shadow: var(--shadow);
 }
 .logo a{
   color: #fff;
